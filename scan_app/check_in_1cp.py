@@ -9,8 +9,11 @@ import tkinter.font as TkFont
 from pygame import mixer
 from PIL import ImageTk, Image
 
-#tkinter
+#Open the excel file that contains the contacts
+#You can find an exmeple here : https://docs.google.com/spreadsheets/d/1IXea1Y45zdlFLKj0hYHyh94zLMwl5kHJ6XTPO0VGKYE/edit?usp=sharing
 
+
+#tkinter
 root = Tk()
 root.attributes('-zoomed', True)
 #root.iconify()

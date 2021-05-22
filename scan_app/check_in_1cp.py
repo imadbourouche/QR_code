@@ -17,6 +17,7 @@ root.attributes('-zoomed', True)
 
 
 PATH= "1cp_list.xlsx"
+DAY="DAY1"
 # Create a frame
 app = Frame(root, bg="white")
 app.grid()
@@ -54,10 +55,10 @@ def video_stream():
         print(int(text))
         if((text.isnumeric())and (int(text)-300<lenn+1)and(int(text)-300>0)):
                #add the element if it's not checked
-            if(df.loc[int(text)-301,'DAY1:ARRIVEE'] == "non") :
-                df.loc[int(text)-301, 'DAY1:ARRIVEE'] = str(datetime.date.today()) + " " +str(datetime.datetime.now().time().strftime('%H:%M:%S'))
+            if(df.loc[int(text)-301,DAY] == "non") :
+                df.loc[int(text)-301, DAY] = str(datetime.date.today()) + " " +str(datetime.datetime.now().time().strftime('%H:%M:%S'))
                 df.to_csv(PATH, index=False)
-                print(df.loc[int(text)-301,'NOM']+" "+df.loc[int(text)-301,'PRENOM']+df.loc[int(text)-301,'GROUPE']+" "+df.loc[int(text)-301,'DAY1:ARRIVEE']+" CHECKED")
+                print(df.loc[int(text)-301,'NOM']+" "+df.loc[int(text)-301,'PRENOM']+df.loc[int(text)-301,'GROUPE']+" "+df.loc[int(text)-301,DAY]+" CHECKED")
                 print("------------------")
                 liste.insert(END,df.loc[int(text)-301,'NOM']+" | "+df.loc[int(text)-301,'PRENOM']+" | "+df.loc[int(text)-301,'GROUPE'])                
                 liste.see(END)

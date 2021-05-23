@@ -32,7 +32,7 @@ sf= TkFont.Font(family='Helvetica', size=16)
 ssf= TkFont.Font(family='Helvetica', size=16,weight="bold")
 
 
-name_personne = Label(root ,text="Hello",fg='white',background='#26c952',height=3,width=35,font=ssf)
+name_personne = Label(root ,text="HELLO",fg='white',background='#26c952',height=3,width=35,font=ssf)
 name_personne.place(relx=0.00001,rely=0.02)
  
 

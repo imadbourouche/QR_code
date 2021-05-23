@@ -9,8 +9,10 @@ import tkinter.font as TkFont
 from pygame import mixer
 from PIL import ImageTk, Image
 
+
 #Open the excel file that contains the contacts
 #You can find an exmeple here : https://docs.google.com/spreadsheets/d/1IXea1Y45zdlFLKj0hYHyh94zLMwl5kHJ6XTPO0VGKYE/edit?usp=sharing
+
 
 
 #tkinter
@@ -19,22 +21,28 @@ root.attributes('-zoomed', True)
 #root.iconify()
 
 
-PATH= "2cp_list.xlsx"
+PATH= "2cp_list.csv"
 DAY="DAY1"
 # Create a frame
 app = Frame(root, bg="white")
-app.grid()
+app.grid(row=0, column=1)
 
 
 sf= TkFont.Font(family='Helvetica', size=16)
+ssf= TkFont.Font(family='Helvetica', size=16,weight="bold")
 
-liste = Listbox(root,width=49,height=24,selectbackground="red",selectmode="SINGLE",font=sf)
-liste.grid(row=0, column=1)
+
+name_personne = Label(root ,text="Hello",fg='white',background='#26c952',height=3,width=35,font=ssf)
+name_personne.place(relx=0.00001,rely=0.02)
+ 
+
+liste = Listbox(root,width=35,height=23,selectbackground="red",selectmode="SINGLE",font=sf)
+liste.grid(row=0, column=0)
 
 # Create a label in the frame
 lmain = Label(app)
-lmain.grid(row=1, column=0)
-
+lmain.grid()
+#row=1, column=0
 
 #start the video capture
 cap = cv2.VideoCapture(0)
@@ -61,6 +69,7 @@ def video_stream():
                 df.to_csv(PATH, index=False)
                 print(df.loc[int(text)-1,'NOM']+" "+df.loc[int(text)-1,'PRENOM']+df.loc[int(text)-1,'GROUPE']+" "+df.loc[int(text)-1,DAY]+" CHECKED")
                 print("------------------")
+                name_personne['text'] = df.loc[int(text)-1,'NOM']+" "+df.loc[int(text)-1,'PRENOM']+" "+df.loc[int(text)-1,'GROUPE']
                 liste.insert(END,df.loc[int(text)-1,'NOM']+" | "+df.loc[int(text)-1,'PRENOM']+" | "+df.loc[int(text)-1,'GROUPE'])                
                 liste.see(END)
                 liste.insert(END,"----------------------------")
@@ -100,4 +109,5 @@ print("------- START CHECKING --------")
 
 video_stream()
 root.mainloop()
+
 

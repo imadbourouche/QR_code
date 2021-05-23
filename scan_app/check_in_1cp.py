@@ -19,22 +19,28 @@ root.attributes('-zoomed', True)
 #root.iconify()
 
 
-PATH= "1cp_list.xlsx"
-DAY="DAY1"
+PATH= "1cp_list.csv"
+DAY="DAY2"
 # Create a frame
 app = Frame(root, bg="white")
-app.grid()
+app.grid(row=0, column=1)
 
 
 sf= TkFont.Font(family='Helvetica', size=16)
+ssf= TkFont.Font(family='Helvetica', size=16,weight="bold")
 
-liste = Listbox(root,width=49,height=24,selectbackground="red",selectmode="SINGLE",font=sf)
-liste.grid(row=0, column=1)
+
+name_personne = Label(root ,text="Hello",fg='white',background='#26c952',height=3,width=35,font=ssf)
+name_personne.place(relx=0.00001,rely=0.02)
+ 
+
+liste = Listbox(root,width=35,height=23,selectbackground="red",selectmode="SINGLE",font=sf)
+liste.grid(row=0, column=0)
 
 # Create a label in the frame
 lmain = Label(app)
-lmain.grid(row=1, column=0)
-
+lmain.grid()
+#row=1, column=0
 
 #start the video capture
 cap = cv2.VideoCapture(0)
@@ -54,20 +60,19 @@ def video_stream():
         #extracte the data from the qrcode
         text= str(obj.data)
         text = text[2:len(text)-1]
-        cv2.putText(frame, text, (20,90), font, 2,(0, 0, 255), 3)
-        print(int(text))
-        if((text.isnumeric())and (int(text)-300<lenn+1)and(int(text)-300>0)):
+        if((text.isnumeric())and (int(text)<lenn+1)and(int(text)>0)):
                #add the element if it's not checked
-            if(df.loc[int(text)-301,DAY] == "non") :
-                df.loc[int(text)-301, DAY] = str(datetime.date.today()) + " " +str(datetime.datetime.now().time().strftime('%H:%M:%S'))
+            if(df.loc[int(text)-1,DAY] == "non") :
+                df.loc[int(text)-1, DAY] = str(datetime.date.today()) + " " +str(datetime.datetime.now().time().strftime('%H:%M:%S'))
                 df.to_csv(PATH, index=False)
-                print(df.loc[int(text)-301,'NOM']+" "+df.loc[int(text)-301,'PRENOM']+df.loc[int(text)-301,'GROUPE']+" "+df.loc[int(text)-301,DAY]+" CHECKED")
+                print(df.loc[int(text)-1,'NOM']+" "+df.loc[int(text)-1,'PRENOM']+df.loc[int(text)-1,'GROUPE']+" "+df.loc[int(text)-1,DAY]+" CHECKED")
                 print("------------------")
-                liste.insert(END,df.loc[int(text)-301,'NOM']+" | "+df.loc[int(text)-301,'PRENOM']+" | "+df.loc[int(text)-301,'GROUPE'])                
+                name_personne['text'] = df.loc[int(text)-1,'NOM']+" "+df.loc[int(text)-1,'PRENOM']+" "+df.loc[int(text)-1,'GROUPE']
+                liste.insert(END,df.loc[int(text)-1,'NOM']+" | "+df.loc[int(text)-1,'PRENOM']+" | "+df.loc[int(text)-1,'GROUPE'])                
                 liste.see(END)
                 liste.insert(END,"----------------------------")
                 mixer.init()
-                mixer.music.load("checked.wav")
+                mixer.music.load("audio.wav")
                 mixer.music.play()
 
             else:
@@ -92,8 +97,6 @@ def video_stream():
 #read the sheet
 
 df = pd.read_csv(PATH)
-
-#check the form of the sheet befor inserting
 liste.insert(END," ")
 for f in df.values:
     if(f[5]!="non"):

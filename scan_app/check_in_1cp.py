@@ -20,7 +20,7 @@ root.attributes('-zoomed', True)
 
 
 PATH= "1cp_list.csv"
-DAY="DAY2"
+DAY="DAY1"
 # Create a frame
 app = Frame(root, bg="white")
 app.grid(row=0, column=1)
@@ -30,7 +30,7 @@ sf= TkFont.Font(family='Helvetica', size=16)
 ssf= TkFont.Font(family='Helvetica', size=16,weight="bold")
 
 
-name_personne = Label(root ,text="Hello",fg='white',background='#26c952',height=3,width=35,font=ssf)
+name_personne = Label(root ,text="HELLO",fg='white',background='#26c952',height=3,width=35,font=ssf)
 name_personne.place(relx=0.00001,rely=0.02)
  
 

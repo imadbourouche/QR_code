@@ -98,10 +98,12 @@ def video_stream():
 
 df = pd.read_csv(PATH)
 liste.insert(END," ")
-for f in df.values:
-    if(f[5]!="non"):
-        liste.insert(END,f[2]+" | "+f[3]+" | "+f[4])
+
+for i in range(len(df)):
+    if(df.loc[int(i),'DAY1']!="non"):
+        liste.insert(END,df.loc[i,'NOM']+" | "+df.loc[i,'PRENOM']+" | "+df.loc[i,'GROUPE'])
         liste.insert(END,"----------------------------")
+
 
 print("------- START CHECKING --------")
 

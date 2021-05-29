@@ -14,3 +14,4 @@ It has this functionalities implemented :
 - pandas .
 - tkinter .
 - pyzbar .
+- pygame (only if u want to play the "checked sound") .
